@@ -7,11 +7,11 @@ import TrackVisibility from 'react-on-screen';
 export const Projects = () => {
 
   const projects = [
-    {
-      title: "K8s Resource Booking Operator",
-      description: "Built a Kubernetes operator using Golang to schedule and manage cloud instances, reducing idle costs.",
-      projectUrl: "https://kotaico.de/resource-booking-operator/",
-    },
+    // {
+    //   title: "K8s Resource Booking Operator",
+    //   description: "Built a Kubernetes operator using Golang to schedule and manage cloud instances, reducing idle costs.",
+    //   projectUrl: "https://kotaico.de/resource-booking-operator/",
+    // },
     {
       title: "Cronochat",
       description: "Slack application for scheduling, recurring, and broadcast messages to enhance team communication.",
