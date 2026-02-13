@@ -13,7 +13,7 @@ export const Banner = () => {
   const [text, setText] = useState('');
   const [delta, setDelta] = useState(300 - Math.random() * 100);
   const [index, setIndex] = useState(1);
-  const toRotate = ["Web Developer", "Web Designer"];
+  const toRotate = ["DevOps Engineer", "Cloud Engineer", "Python Developer"];
   const period = 2000;
 
   useEffect(() => {
@@ -58,9 +58,9 @@ export const Banner = () => {
               {({ isVisible }) =>
                 <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
                   <h1>{`Hi! I'm Tom Jose`}</h1>
-                  <h2> <span className="txt-rotate" dataPeriod="1000" data-rotate='[ "Web Developer", "Web Designer" ]'><span className="wrap">{text}</span></span></h2>
-                  <p>A passionate self-taught full stack developer from India, I love building web applications</p>
-                  <a href={resume} download="resume" target='_blank'>
+                  <h2> <span className="txt-rotate" dataPeriod="1000" data-rotate='[ "DevOps Engineer", "Cloud Engineer", "Python Developer" ]'><span className="wrap">{text}</span></span></h2>
+                  <p>DevOps Engineer with 5 years of experience building and operating cloud-native platforms through automation and Infrastructure as Code. specialized in AWS, Kubernetes, and CI/CD pipelines.</p>
+                  <a href={resume} download="Tom_Jose_Resume.pdf" target='_blank'>
                     <Button>Download Resume</Button>
                   </a>
                   <button onClick={() => console.log('connect')}>Let’s Connect <ArrowRightCircle size={25} /></button>
