@@ -168,8 +168,8 @@ hand-maintained.
 - **Cadence tiles** — post count over the known window, posts per week, and the
   most-frequent topic derived from RSS `<category>` tags.
 - **Publishing heatmap** — weekday-column grid, GitHub-contributions style in
-  teal. Renders only weeks the archive covers; empty weeks are omitted rather
-  than shown as gaps, so a young archive reads as "3 weeks" rather than as
+  teal. Spans the earliest known post to today; weeks before that are omitted
+  rather than drawn empty, so a young archive reads as "3 weeks" rather than as
   "9 weeks of silence". Caption states the archive's start date.
 - **Featured latest post** — newest entry, with title, date and topic tags.
 - **Recent rows** — the following posts as compact rows: mono date, title,
@@ -280,8 +280,14 @@ non-200, or fails to parse, the script logs a warning and **exits zero**, leavin
 the archive untouched. A Medium outage must never break a deploy or blank the
 writing chapter. The build then renders from the last good archive.
 
-The heatmap window starts at `firstSeenAt`, so it never displays weeks that
-predate the archive and cannot be mistaken for a publishing gap.
+**The heatmap and cadence window starts at the earliest `publishedAt` in the
+archive, not at `firstSeenAt`.** The first sync already yields ~10 posts spanning
+roughly three weeks *before* the archive existed; anchoring the window to
+`firstSeenAt` would render an empty grid on day one. `firstSeenAt` is retained
+only as caption metadata ("tracking since …").
+
+The window therefore never displays weeks with no data behind them and cannot be
+mistaken for a publishing gap.
 
 ## Motion
 
@@ -380,8 +386,10 @@ appearance:
 - **Sync failure** — unreachable feed, non-200, and malformed XML each leave the
   archive byte-identical and exit zero.
 - **Cadence derivation** — posts-per-week and most-frequent-topic against a fixed
-  fixture archive; heatmap emits only weeks at or after `firstSeenAt`; a
-  single-post archive does not divide by zero.
+  fixture archive; the window anchors to the earliest `publishedAt` rather than
+  `firstSeenAt`, so a freshly-created archive still renders three populated
+  weeks; a single-post archive does not divide by zero; an empty archive yields
+  no weeks rather than throwing.
 - **Command palette** — search matches products and chapters, keyboard
   navigation, Escape closes, focus returns.
 - **Contact form** — validation states, success and error rendering, submit
