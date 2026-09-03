@@ -130,3 +130,9 @@ export interface UiCopy {
   /** Nav's résumé download link, both desktop and mobile-menu renderings. */
   navResumeLabel: string
 }
+
+export interface PipelineNode {
+  name: string
+  /** The real tooling behind this stage, rendered small beneath the name. */
+  detail: string
+}
