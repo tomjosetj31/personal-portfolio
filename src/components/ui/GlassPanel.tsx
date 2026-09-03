@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from 'react'
+import { useCallback, type HTMLAttributes, type MouseEventHandler, type ReactNode } from 'react'
 import { useCursorGlow } from '../../hooks/useCursorGlow'
 
 interface GlassPanelProps extends HTMLAttributes<HTMLElement> {
@@ -13,13 +13,33 @@ export function GlassPanel({
   glow = false,
   className = '',
   children,
+  onMouseMove: callerOnMouseMove,
+  onMouseLeave: callerOnMouseLeave,
   ...rest
 }: GlassPanelProps) {
-  const { onMouseMove, onMouseLeave } = useCursorGlow()
-  const glowProps = glow ? { onMouseMove, onMouseLeave } : {}
+  const { onMouseMove: glowOnMouseMove, onMouseLeave: glowOnMouseLeave } = useCursorGlow()
+
+  /* Compose glow handlers with caller-supplied handlers if present. */
+  const onMouseMove = useCallback<MouseEventHandler<HTMLElement>>(
+    (event) => {
+      glowOnMouseMove(event)
+      callerOnMouseMove?.(event)
+    },
+    [glowOnMouseMove, callerOnMouseMove],
+  )
+
+  const onMouseLeave = useCallback<MouseEventHandler<HTMLElement>>(
+    (event) => {
+      glowOnMouseLeave(event)
+      callerOnMouseLeave?.(event)
+    },
+    [glowOnMouseLeave, callerOnMouseLeave],
+  )
+
+  const handlers = glow ? { onMouseMove, onMouseLeave } : {}
 
   return (
-    <Tag className={`glass ${glow ? 'glass-glow' : ''} ${className}`.trim()} {...glowProps} {...rest}>
+    <Tag className={`glass ${glow ? 'glass-glow' : ''} ${className}`.trim()} {...handlers} {...rest}>
       {children}
     </Tag>
   )
