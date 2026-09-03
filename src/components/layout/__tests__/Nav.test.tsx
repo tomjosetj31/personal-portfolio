@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 import { chapters } from '../../../content/chapters'
 import { profile } from '../../../content/profile'
@@ -33,5 +34,72 @@ describe('Nav', () => {
   it('is a navigation landmark', () => {
     render(<Nav onOpenPalette={() => {}} />)
     expect(screen.getByRole('navigation')).toBeInTheDocument()
+  })
+})
+
+describe('Nav mobile menu', () => {
+  it('exposes a closed toggle by default', () => {
+    render(<Nav onOpenPalette={() => {}} />)
+    const toggle = screen.getByRole('button', { name: /open menu/i })
+    expect(toggle).toHaveAttribute('aria-expanded', 'false')
+  })
+
+  it('reveals links to all four chapters when activated', async () => {
+    render(<Nav onOpenPalette={() => {}} />)
+    const toggle = screen.getByRole('button', { name: /open menu/i })
+    await userEvent.click(toggle)
+
+    const panelId = toggle.getAttribute('aria-controls')!
+    const panel = document.getElementById(panelId)
+    expect(panel).toBeInTheDocument()
+
+    for (const chapter of chapters) {
+      const link = within(panel!).getByRole('link', { name: new RegExp(chapter.title, 'i') })
+      expect(link).toHaveAttribute('href', `#${chapter.id}`)
+    }
+  })
+
+  it('flips aria-expanded to true once open', async () => {
+    render(<Nav onOpenPalette={() => {}} />)
+    const toggle = screen.getByRole('button', { name: /open menu/i })
+    await userEvent.click(toggle)
+    expect(toggle).toHaveAttribute('aria-expanded', 'true')
+  })
+
+  it('closes on Escape', async () => {
+    render(<Nav onOpenPalette={() => {}} />)
+    const toggle = screen.getByRole('button', { name: /open menu/i })
+    await userEvent.click(toggle)
+    const panelId = toggle.getAttribute('aria-controls')!
+    expect(document.getElementById(panelId)).toBeInTheDocument()
+
+    await userEvent.keyboard('{Escape}')
+
+    expect(document.getElementById(panelId)).toBeNull()
+    expect(screen.getByRole('button', { name: /open menu/i })).toHaveAttribute('aria-expanded', 'false')
+  })
+
+  it('closes when a chapter link inside it is activated', async () => {
+    render(<Nav onOpenPalette={() => {}} />)
+    const toggle = screen.getByRole('button', { name: /open menu/i })
+    await userEvent.click(toggle)
+    const panelId = toggle.getAttribute('aria-controls')!
+    const panel = document.getElementById(panelId)!
+
+    const link = within(panel).getByRole('link', { name: new RegExp(chapters[0].title, 'i') })
+    await userEvent.click(link)
+
+    expect(document.getElementById(panelId)).toBeNull()
+    expect(screen.getByRole('button', { name: /open menu/i })).toHaveAttribute('aria-expanded', 'false')
+  })
+
+  it('keeps the panel out of the accessibility tree while closed', () => {
+    render(<Nav onOpenPalette={() => {}} />)
+    const toggle = screen.getByRole('button', { name: /open menu/i })
+    const panelId = toggle.getAttribute('aria-controls')!
+
+    expect(document.getElementById(panelId)).toBeNull()
+    // The desktop link set is always present; the mobile panel's duplicate must not be.
+    expect(screen.queryAllByRole('link', { name: new RegExp(chapters[0].title, 'i') })).toHaveLength(1)
   })
 })
