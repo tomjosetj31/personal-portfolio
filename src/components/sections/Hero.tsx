@@ -1,4 +1,5 @@
 import { profile } from '../../content/profile'
+import { uiCopy } from '../../content/ui'
 import { MonoLabel } from '../ui/MonoLabel'
 import { Reveal } from '../ui/Reveal'
 
@@ -52,10 +53,10 @@ export function Hero() {
 
         <div className="flex flex-wrap items-center gap-2.5">
           <a href="#infrastructure" className="btn-primary">
-            See the work ↓
+            {uiCopy.heroPrimaryCta}
           </a>
           <a href={profile.resumePath} download className="btn-glass">
-            Download résumé
+            {uiCopy.heroSecondaryCta}
           </a>
         </div>
       </Reveal>

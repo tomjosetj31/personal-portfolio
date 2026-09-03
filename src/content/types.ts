@@ -121,3 +121,12 @@ export interface ProofPoint {
   /** Two short lines; rendered with a break between them. */
   label: [string, string]
 }
+
+export interface UiCopy {
+  /** Hero's primary CTA — links into the work. */
+  heroPrimaryCta: string
+  /** Hero's secondary CTA — downloads the résumé. */
+  heroSecondaryCta: string
+  /** Nav's résumé download link, both desktop and mobile-menu renderings. */
+  navResumeLabel: string
+}

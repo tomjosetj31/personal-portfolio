@@ -5,6 +5,7 @@ import { experience, education } from '../experience'
 import { guides } from '../guides'
 import { certifications } from '../certifications'
 import { MEDIUM_FEED_URL, MEDIUM_PROFILE_URL, TOPIC_STOPLIST } from '../writing'
+import { uiCopy } from '../ui'
 
 describe('products', () => {
   it('has at least one product', () => {
@@ -110,5 +111,14 @@ describe('writing config', () => {
 
   it('stop-lists the generic tags so the top topic is informative', () => {
     expect(TOPIC_STOPLIST).toContain('software-engineering')
+  })
+})
+
+describe('ui copy', () => {
+  it('gives every field a non-empty string', () => {
+    for (const [key, value] of Object.entries(uiCopy)) {
+      expect(typeof value, key).toBe('string')
+      expect(value.length, key).toBeGreaterThan(0)
+    }
   })
 })

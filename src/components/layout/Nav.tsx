@@ -2,6 +2,7 @@ import { motion } from 'motion/react'
 import { useEffect, useId, useRef, useState } from 'react'
 import { chapters } from '../../content/chapters'
 import { profile } from '../../content/profile'
+import { uiCopy } from '../../content/ui'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 import { MonoLabel } from '../ui/MonoLabel'
 import { StatusChip } from '../ui/StatusChip'
@@ -66,7 +67,7 @@ export function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
         className="rounded-[7px] px-3 py-[7px] text-center text-[11px] font-semibold"
         style={{ background: 'var(--text)', color: 'var(--bg)' }}
       >
-        Résumé ↓
+        {uiCopy.navResumeLabel}
       </a>
     </>
   )
@@ -124,7 +125,7 @@ export function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
             className="rounded-[7px] px-3 py-[7px] text-[11px] font-semibold"
             style={{ background: '#f4f6ff', color: '#05060f' }}
           >
-            Résumé ↓
+            {uiCopy.navResumeLabel}
           </a>
 
           <button
