@@ -31,6 +31,12 @@
       transition-duration: 0.01ms !important;
     }
   }
+  @keyframes chip-pulse {
+    50% {
+      opacity: 0.35;
+      transform: scale(0.8);
+    }
+  }
 }
 
 @layer components {
@@ -50,6 +56,20 @@
     z-index: -1;
     border-radius: inherit;
     background: var(--glass-scrim);
+  }
+  .glass-glow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    opacity: var(--g-opacity, 0);
+    transition: opacity 0.25s ease;
+    background: radial-gradient(
+      220px circle at var(--gx, 50%) var(--gy, 50%),
+      rgba(167, 139, 250, 0.16),
+      transparent 70%
+    );
   }
 
   .lbl {
