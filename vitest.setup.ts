@@ -13,3 +13,28 @@ if (!window.matchMedia) {
     dispatchEvent: vi.fn(),
   })) as unknown as typeof window.matchMedia
 }
+
+class ImmediateIntersectionObserver implements IntersectionObserver {
+  readonly root = null
+  readonly rootMargin = ''
+  readonly thresholds: ReadonlyArray<number> = []
+
+  constructor(private readonly callback: IntersectionObserverCallback) {}
+
+  observe(target: Element): void {
+    this.callback(
+      [{ isIntersecting: true, target } as IntersectionObserverEntry],
+      this as unknown as IntersectionObserver,
+    )
+  }
+  unobserve(): void {}
+  disconnect(): void {}
+  takeRecords(): IntersectionObserverEntry[] {
+    return []
+  }
+}
+
+if (!('IntersectionObserver' in window)) {
+  (window as any).IntersectionObserver =
+    ImmediateIntersectionObserver as unknown as typeof IntersectionObserver
+}
