@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { MonoLabel } from './MonoLabel'
 
 type CopyState = 'idle' | 'copied' | 'failed'
@@ -9,6 +9,15 @@ type CopyState = 'idle' | 'copied' | 'failed'
  */
 export function CopyableCommand({ label, command }: { label: string; command: string }) {
   const [state, setState] = useState<CopyState>('idle')
+  const timerRef = useRef<number | null>(null)
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current !== null) {
+        clearTimeout(timerRef.current)
+      }
+    }
+  }, [])
 
   const copy = async () => {
     try {
@@ -18,7 +27,8 @@ export function CopyableCommand({ label, command }: { label: string; command: st
     } catch {
       setState('failed')
     }
-    window.setTimeout(() => setState('idle'), 2200)
+    if (timerRef.current !== null) clearTimeout(timerRef.current)
+    timerRef.current = window.setTimeout(() => setState('idle'), 2200)
   }
 
   return (
@@ -32,7 +42,7 @@ export function CopyableCommand({ label, command }: { label: string; command: st
       >
         <code
           className="overflow-hidden text-ellipsis whitespace-nowrap"
-          style={{ font: '500 10px/1 var(--font-mono)', color: '#a5f3fc' }}
+          style={{ font: '500 10px/1 var(--font-mono)', color: 'var(--accent-cyan-soft)' }}
         >
           {command}
         </code>
@@ -40,6 +50,9 @@ export function CopyableCommand({ label, command }: { label: string; command: st
           {state === 'copied' ? 'Copied' : state === 'failed' ? 'Copy failed' : 'Copy'}
         </MonoLabel>
       </button>
+      <span className="sr-only" role="status" aria-live="polite">
+        {state === 'copied' ? 'Copied' : state === 'failed' ? 'Copy failed' : ''}
+      </span>
     </div>
   )
 }

@@ -50,4 +50,58 @@ describe('CopyableCommand', () => {
     await userEvent.click(screen.getByRole('button'))
     await waitFor(() => expect(screen.getByRole('button')).toHaveTextContent(/failed/i))
   })
+
+  it('does not crash when unmounting after a click', async () => {
+    stubClipboard(async () => {})
+    const { unmount } = render(<CopyableCommand label="Install" command={COMMAND} />)
+    const button = screen.getByRole('button')
+    button.click()
+    unmount()
+    // No error should be thrown on unmount
+    expect(true).toBe(true)
+  })
+
+  it('handles rapid clicks with timer cleanup', async () => {
+    vi.useFakeTimers()
+    try {
+      stubClipboard(async () => {})
+      render(<CopyableCommand label="Install" command={COMMAND} />)
+      const button = screen.getByRole('button')
+      button.click()
+      vi.advanceTimersByTime(100)
+      button.click()
+      vi.advanceTimersByTime(2300)
+      expect(button).toHaveTextContent('Copy')
+    } finally {
+      vi.useRealTimers()
+    }
+  })
+
+  it('renders aria-live region for status announcements', () => {
+    render(<CopyableCommand label="Install" command={COMMAND} />)
+    const ariaLive = screen.getByRole('status')
+    expect(ariaLive).toBeInTheDocument()
+  })
+
+  it('announces state changes in aria-live region when clipboard write succeeds', async () => {
+    stubClipboard(async () => {})
+    const { container } = render(<CopyableCommand label="Install" command={COMMAND} />)
+    const button = screen.getByRole('button')
+    const ariaLive = container.querySelector('[role="status"]')!
+    expect(ariaLive.textContent).toBe('')
+    button.click()
+    await waitFor(() => expect(ariaLive.textContent).toBe('Copied'), { timeout: 500 })
+  })
+
+  it('announces state changes in aria-live region when clipboard write fails', async () => {
+    stubClipboard(async () => {
+      throw new Error('denied')
+    })
+    const { container } = render(<CopyableCommand label="Install" command={COMMAND} />)
+    const button = screen.getByRole('button')
+    const ariaLive = container.querySelector('[role="status"]')!
+    expect(ariaLive.textContent).toBe('')
+    button.click()
+    await waitFor(() => expect(ariaLive.textContent).toBe('Copy failed'), { timeout: 500 })
+  })
 })

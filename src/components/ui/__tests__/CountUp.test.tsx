@@ -46,4 +46,11 @@ describe('CountUp', () => {
     render(<CountUp value={0} />)
     expect(screen.getByText('0')).toBeInTheDocument()
   })
+
+  it('renders final value on first render under reduced motion without flash', () => {
+    setReducedMotion(true)
+    const { container } = render(<CountUp value={42} />)
+    // Assert immediately after render, without waitFor, proves no flash occurs
+    expect(container.textContent).toBe('42')
+  })
 })

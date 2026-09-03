@@ -13,12 +13,7 @@ export function CountUp({ value, suffix = '', decimals = 0, durationMs = 1100 }:
   const reduced = useReducedMotion()
   const ref = useRef<HTMLSpanElement>(null)
   const [started, setStarted] = useState(false)
-  const [display, setDisplay] = useState(value)
-
-  // Start at zero only when we are actually going to animate.
-  useEffect(() => {
-    if (!reduced && !started) setDisplay(0)
-  }, [reduced, started])
+  const [display, setDisplay] = useState(reduced ? value : 0)
 
   useEffect(() => {
     if (reduced) {
