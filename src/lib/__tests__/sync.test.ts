@@ -114,4 +114,52 @@ describe('syncArchive — failure paths must leave the archive untouched', () =>
     expect(result.reason).toMatch(/archive/i)
     expect(d.writeArchive).not.toHaveBeenCalled()
   })
+
+  it('resolves to skipped, not a rejection, when writeArchive itself throws (EACCES, ENOSPC, ...)', async () => {
+    const d = deps({
+      readArchive: async () => existing,
+      writeArchive: vi.fn(async () => {
+        throw new Error('EACCES: permission denied')
+      }),
+    })
+    const result = await syncArchive(d)
+    expect(result.status).toBe('skipped')
+    expect(result.reason).toContain('EACCES')
+    expect(result.added).toBe(0)
+  })
+})
+
+describe('syncArchive — write failure does not mask a real result', () => {
+  it('still reports unchanged (and never calls writeArchive) when a broken writeArchive is injected but the feed brings nothing new', async () => {
+    const existing = JSON.stringify({
+      source: SOURCE,
+      firstSeenAt: '2026-08-01',
+      lastSyncedAt: '2026-09-02T06:00:00.000Z',
+      articles: [
+        {
+          guid: 'https://medium.com/p/206a174a1c59',
+          title: 'How I Would Design GitOps for 100+ Kubernetes Clusters',
+          url: 'https://medium.com/p/206a174a1c59',
+          publishedAt: '2026-09-02T09:46:00.000Z',
+          topics: ['gitops'],
+        },
+      ],
+    })
+    const writeArchive = vi.fn(async () => {
+      throw new Error('MUST NOT BE CALLED')
+    })
+    const d = deps({ readArchive: async () => existing, writeArchive })
+    const result = await syncArchive(d)
+    expect(result.status).toBe('unchanged')
+    expect(result.added).toBe(0)
+    expect(writeArchive).not.toHaveBeenCalled()
+  })
+
+  it('still reports updated with the correct added count when writeArchive succeeds', async () => {
+    const d = deps()
+    const result = await syncArchive(d)
+    expect(result.status).toBe('updated')
+    expect(result.added).toBe(1)
+    expect(d.writeArchive).toHaveBeenCalledOnce()
+  })
 })

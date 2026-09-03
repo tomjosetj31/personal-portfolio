@@ -58,6 +58,11 @@ export async function syncArchive(deps: SyncDeps): Promise<SyncResult> {
     return { status: 'unchanged', added: 0 }
   }
 
-  await deps.writeArchive(`${JSON.stringify(merged, null, 2)}\n`)
+  try {
+    await deps.writeArchive(`${JSON.stringify(merged, null, 2)}\n`)
+  } catch (error) {
+    return { status: 'skipped', reason: `failed to write archive: ${String(error)}`, added: 0 }
+  }
+
   return { status: 'updated', added }
 }
