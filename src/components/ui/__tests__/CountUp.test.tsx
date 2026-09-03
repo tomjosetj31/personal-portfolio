@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { CountUp } from '../CountUp'
 
 function setReducedMotion(matches: boolean) {
@@ -19,10 +19,27 @@ beforeEach(() => {
   setReducedMotion(false)
 })
 
+afterEach(() => {
+  vi.restoreAllMocks()
+  // Ensure matchMedia is restored for subsequent tests
+  if (!window.matchMedia) {
+    window.matchMedia = vi.fn().mockImplementation((query: string) => ({
+      matches: false,
+      media: query,
+      onchange: null,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    })) as unknown as typeof window.matchMedia
+  }
+})
+
 describe('CountUp', () => {
   it('reaches the target value', async () => {
-    render(<CountUp value={40} />)
-    await waitFor(() => expect(screen.getByText('40')).toBeInTheDocument(), { timeout: 2000 })
+    render(<CountUp value={40} durationMs={50} />)
+    await waitFor(() => expect(screen.getByText('40')).toBeInTheDocument(), { timeout: 1500 })
   })
 
   it('renders the final value immediately under reduced motion', () => {
@@ -32,13 +49,13 @@ describe('CountUp', () => {
   })
 
   it('appends a suffix', async () => {
-    render(<CountUp value={40} suffix="%" />)
-    await waitFor(() => expect(screen.getByText('40%')).toBeInTheDocument(), { timeout: 2000 })
+    render(<CountUp value={40} suffix="%" durationMs={50} />)
+    await waitFor(() => expect(screen.getByText('40%')).toBeInTheDocument(), { timeout: 1500 })
   })
 
   it('renders decimals when asked', async () => {
-    render(<CountUp value={4.2} decimals={1} />)
-    await waitFor(() => expect(screen.getByText('4.2')).toBeInTheDocument(), { timeout: 2000 })
+    render(<CountUp value={4.2} decimals={1} durationMs={50} />)
+    await waitFor(() => expect(screen.getByText('4.2')).toBeInTheDocument(), { timeout: 1500 })
   })
 
   it('renders zero without animating to something else', () => {
