@@ -12,10 +12,12 @@ interface RawItem {
 /** `{ '#text': '…', '@_isPermaLink': 'false' }` or a bare string, depending on attributes. */
 function textOf(value: unknown): string {
   if (value == null) return ''
+  if (typeof value === 'string') return value
+  if (typeof value === 'number') return String(value)
   if (typeof value === 'object' && '#text' in (value as Record<string, unknown>)) {
     return String((value as Record<string, unknown>)['#text'] ?? '')
   }
-  return String(value)
+  return ''
 }
 
 function asArray(value: unknown): unknown[] {

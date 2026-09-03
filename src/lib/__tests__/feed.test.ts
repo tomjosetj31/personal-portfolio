@@ -71,4 +71,28 @@ describe('parseFeed', () => {
     expect(parseFeed('this is not xml at all <<<>>>')).toEqual([])
     expect(parseFeed('')).toEqual([])
   })
+
+  it('skips items whose title or guid parse as nested objects without #text', () => {
+    const withNestedTitle = `<?xml version="1.0"?><rss version="2.0"><channel><item>
+      <title><t>x</t></title><link>https://medium.com/p/nested</link>
+      <guid isPermaLink="false">https://medium.com/p/nested</guid>
+      <pubDate>Wed, 02 Sep 2026 09:46:00 GMT</pubDate></item></channel></rss>`
+    const articles = parseFeed(withNestedTitle)
+    expect(articles).toHaveLength(0)
+
+    const withNestedGuid = `<?xml version="1.0"?><rss version="2.0"><channel><item>
+      <title>Valid title</title><link>https://medium.com/p/nested</link>
+      <guid><g>x</g></guid>
+      <pubDate>Wed, 02 Sep 2026 09:46:00 GMT</pubDate></item></channel></rss>`
+    const articles2 = parseFeed(withNestedGuid)
+    expect(articles2).toHaveLength(0)
+
+    // Verify no "[object Object]" appears in any field
+    const allArticles = [...articles, ...articles2]
+    for (const article of allArticles) {
+      expect(article.title).not.toContain('[object Object]')
+      expect(article.guid).not.toContain('[object Object]')
+      expect(article.url).not.toContain('[object Object]')
+    }
+  })
 })
