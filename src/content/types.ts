@@ -110,3 +110,14 @@ export interface Chapter {
   /** A CSS custom property reference, e.g. 'var(--accent-cyan)'. */
   accent: string
 }
+
+export interface ProofPoint {
+  value: number
+  /** Rendered small, after the number. */
+  suffix?: string
+  /** Rendered before the number, e.g. '~' or '−'. */
+  prefix?: string
+  decimals?: number
+  /** Two short lines; rendered with a break between them. */
+  label: [string, string]
+}
