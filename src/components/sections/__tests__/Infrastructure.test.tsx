@@ -47,4 +47,9 @@ describe('Infrastructure', () => {
     render(<Infrastructure />)
     expect(screen.getByText(new RegExp(experience.company, 'i'))).toBeInTheDocument()
   })
+
+  it('exposes the pipeline as a scrollable, keyboard-reachable region so narrow viewports never clip a stage silently', () => {
+    render(<Infrastructure />)
+    expect(screen.getByRole('group', { name: /deployment pipeline, scrollable/i })).toBeInTheDocument()
+  })
 })
