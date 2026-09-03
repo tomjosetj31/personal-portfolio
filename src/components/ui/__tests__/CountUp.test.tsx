@@ -70,4 +70,28 @@ describe('CountUp', () => {
     // Assert immediately after render, without waitFor, proves no flash occurs
     expect(container.textContent).toBe('42')
   })
+
+  it('never renders negative or overshooting values during animation', async () => {
+    const value = 100
+    const { container } = render(<CountUp value={value} durationMs={300} />)
+    const span = container.querySelector('span')!
+
+    // Sample rendered values across the animation to catch clock skew regressions
+    const samples: number[] = []
+    for (let i = 0; i < 15; i++) {
+      await new Promise((resolve) => setTimeout(resolve, 25))
+      const text = span.textContent ?? '0'
+      const num = parseFloat(text)
+      samples.push(num)
+    }
+
+    // Every intermediate value must be in [0, value], never negative or exceeding target
+    samples.forEach((sample) => {
+      expect(sample).toBeGreaterThanOrEqual(0)
+      expect(sample).toBeLessThanOrEqual(value)
+    })
+
+    // Final value should reach the target
+    await waitFor(() => expect(screen.getByText('100')).toBeInTheDocument())
+  })
 })

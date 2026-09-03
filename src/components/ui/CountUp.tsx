@@ -39,10 +39,16 @@ export function CountUp({ value, suffix = '', decimals = 0, durationMs = 1100 }:
   useEffect(() => {
     if (reduced || !started) return
     let frame = 0
-    const startedAt = performance.now()
+    let startedAt: number | null = null
 
     const tick = (now: number) => {
-      const progress = Math.min(1, (now - startedAt) / durationMs)
+      // Use the rAF timestamp to derive start time, not performance.now().
+      // In jsdom and other test environments, performance.now() and the rAF timestamp
+      // do not share an origin — the gap widens under parallel load, causing negative
+      // progress and breaking the easing curve. Deriving startedAt from the first rAF
+      // callback ensures both values come from the same clock.
+      if (startedAt === null) startedAt = now
+      const progress = Math.min(1, Math.max(0, (now - startedAt) / durationMs))
       const eased = 1 - Math.pow(1 - progress, 3)
       if (progress < 1) {
         setDisplay(value * eased)
