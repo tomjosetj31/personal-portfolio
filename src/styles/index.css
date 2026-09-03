@@ -37,6 +37,21 @@
       transform: scale(0.8);
     }
   }
+  @keyframes drift-1 {
+    to {
+      transform: translate(70px, 60px) scale(1.14);
+    }
+  }
+  @keyframes drift-2 {
+    to {
+      transform: translate(-60px, 80px) scale(1.1);
+    }
+  }
+  @keyframes drift-3 {
+    to {
+      transform: translate(50px, -70px) scale(1.18);
+    }
+  }
 }
 
 @layer components {
@@ -174,5 +189,37 @@
     max-width: var(--measure);
     margin: 0 auto;
     padding: 0 30px;
+  }
+
+  .aurora-bloom {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(58px);
+    opacity: 0.62;
+  }
+  .aurora-bloom-1 {
+    width: 560px;
+    height: 560px;
+    left: -170px;
+    top: -230px;
+    background: radial-gradient(circle, var(--aurora-violet), transparent 64%);
+    animation: drift-1 34s ease-in-out infinite alternate;
+  }
+  .aurora-bloom-2 {
+    width: 480px;
+    height: 480px;
+    right: -150px;
+    top: 60px;
+    background: radial-gradient(circle, var(--aurora-cyan), transparent 64%);
+    animation: drift-2 41s ease-in-out infinite alternate;
+  }
+  .aurora-bloom-3 {
+    width: 400px;
+    height: 400px;
+    left: 34%;
+    top: 420px;
+    opacity: 0.34;
+    background: radial-gradient(circle, var(--aurora-magenta), transparent 66%);
+    animation: drift-3 47s ease-in-out infinite alternate;
   }
 }

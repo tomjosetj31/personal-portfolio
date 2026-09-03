@@ -101,3 +101,12 @@ export interface Education {
   location: string
   period: string
 }
+
+export interface Chapter {
+  /** Also the section's DOM id and the anchor target. */
+  id: string
+  num: string
+  title: string
+  /** A CSS custom property reference, e.g. 'var(--accent-cyan)'. */
+  accent: string
+}
