@@ -136,3 +136,32 @@ export interface PipelineNode {
   /** The real tooling behind this stage, rendered small beneath the name. */
   detail: string
 }
+
+export interface WritingCopy {
+  /** Tile label above the animated post count. */
+  postsTileLabel: string
+  /** Word rendered beside the animated post count, e.g. "12 posts". */
+  postsSuffix: string
+  /** Tile label above the animated weekly cadence figure. */
+  cadenceTileLabel: string
+  /** Unit rendered after the animated cadence figure, e.g. "1.4/wk". */
+  cadenceSuffix: string
+  /** Tile label above the most-written topic. */
+  topTopicTileLabel: string
+  /** Shown in the topic tile when no topic survives the stoplist. */
+  topTopicFallback: string
+  /** Shown instead of the featured post and list when the archive is empty. */
+  emptyState: string
+  /** Badge on the featured card. `date` is the already-formatted publish date. */
+  latestBadge: (date: string) => string
+  /** Footer line naming how many articles the archive holds. */
+  articlesTracked: (count: number) => string
+  /** Footer link out to the author's Medium profile. */
+  followOnMedium: string
+  /** Heatmap caption. `weeks` is the number of weeks rendered. */
+  heatmapCaption: (weeks: number) => string
+  /** Heatmap status word, top-right of the caption row. */
+  heatmapAutoUpdated: string
+  /** Heatmap footnote. `firstSeenAt` is the archive's first-sync ISO date. */
+  trackingSince: (firstSeenAt: string) => string
+}
