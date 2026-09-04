@@ -1,9 +1,11 @@
-import { proofPoints } from '../../content/proof'
+import { buildProofPoints } from '../../content/proof'
 import { CountUp } from '../ui/CountUp'
 import { GlassPanel } from '../ui/GlassPanel'
 import { Reveal } from '../ui/Reveal'
 
 export function ProofStrip() {
+  const proofPoints = buildProofPoints()
+
   return (
     <section className="shell" aria-label="Impact at a glance">
       <div className="grid grid-cols-2 gap-2.5 md:grid-cols-4">

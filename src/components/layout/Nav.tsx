@@ -41,8 +41,10 @@ export function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
 
   const panelContent = (
     <>
+      {/* sm:hidden: the bar's own chip (hidden sm:inline-flex) already covers >=640px;
+          without this, both would render at once between 640-767px while the panel is open. */}
       {profile.availability && (
-        <span className="inline-flex">
+        <span className="inline-flex sm:hidden">
           <StatusChip>{profile.availability}</StatusChip>
         </span>
       )}
@@ -119,10 +121,12 @@ export function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
             <MonoLabel>⌘K</MonoLabel>
           </button>
 
+          {/* hidden below md: the mobile panel supplies its own résumé link there,
+              so this stays out of the DOM's accessible-name count while it's open. */}
           <a
             href={profile.resumePath}
             download
-            className="rounded-[7px] px-3 py-[7px] text-[11px] font-semibold"
+            className="hidden rounded-[7px] px-3 py-[7px] text-[11px] font-semibold md:inline-block"
             style={{ background: '#f4f6ff', color: '#05060f' }}
           >
             {uiCopy.navResumeLabel}

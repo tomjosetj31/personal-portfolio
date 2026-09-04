@@ -41,6 +41,9 @@ jobs:
         run: npm run build
 
       - name: Commit refreshed article archive
+        # Only main has anywhere to push the archive back to — a workflow_dispatch
+        # on a feature branch must not commit it there.
+        if: github.ref == 'refs/heads/main'
         run: |
           if git diff --quiet -- src/content/articles.archive.json; then
             echo "archive unchanged — nothing to commit"
@@ -50,7 +53,12 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add src/content/articles.archive.json
           git commit -m "chore: sync medium archive [skip ci]"
-          git push
+          # main may have moved since checkout; rebase onto it before pushing. A
+          # build that already succeeded should still deploy even if this loses a
+          # race or the push itself fails — the archive will simply sync again on
+          # the next run, so neither failure should fail the job.
+          git pull --rebase origin main || echo "rebase failed — will retry on the next run"
+          git push || echo "archive push failed — will retry on the next run"
 
       - uses: actions/configure-pages@v5
 

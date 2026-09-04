@@ -132,5 +132,16 @@ describe('CommandPalette', () => {
       await userEvent.keyboard('{Enter}')
       await waitFor(() => expect(trigger).toHaveFocus())
     })
+
+    it('restores focus without re-scrolling, so it cannot cancel the command it just ran', async () => {
+      render(<Harness />)
+      const trigger = screen.getByRole('button', { name: /open palette/i })
+      const focusSpy = vi.spyOn(trigger, 'focus')
+
+      await userEvent.click(trigger)
+      await userEvent.keyboard('{Enter}')
+
+      await waitFor(() => expect(focusSpy).toHaveBeenCalledWith({ preventScroll: true }))
+    })
   })
 })

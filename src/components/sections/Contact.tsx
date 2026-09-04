@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useRef, useState, type FormEvent } from 'react'
 import { contactCopy } from '../../content/contact'
 import { profile } from '../../content/profile'
 import { GlassPanel } from '../ui/GlassPanel'
@@ -53,6 +53,7 @@ export function Contact({
   const [status, setStatus] = useState<Status>('idle')
   const [form, setForm] = useState<FormState>({ name: '', email: '', message: '' })
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
+  const botcheckRef = useRef<HTMLInputElement>(null)
 
   const update = (field: Field) => (event: { target: { value: string } }) => {
     const value = event.target.value
@@ -86,6 +87,7 @@ export function Contact({
           subject: `Portfolio enquiry from ${form.name}`,
           from_name: form.name,
           ...form,
+          botcheck: botcheckRef.current?.checked ?? false,
         }),
       })
       setStatus(response.ok ? 'success' : 'error')
@@ -169,8 +171,9 @@ export function Contact({
                   )}
                 </label>
 
-                {/* Web3Forms spam honeypot — hidden from users, filled only by bots. */}
-                <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} />
+                {/* Web3Forms spam honeypot — hidden from users, filled only by bots.
+                    Its checked state is read at submit time and sent as `botcheck`. */}
+                <input ref={botcheckRef} type="checkbox" name="botcheck" className="hidden" tabIndex={-1} />
 
                 <div className="sm:col-span-2">
                   <button type="submit" className="btn-primary" disabled={status === 'pending'}>

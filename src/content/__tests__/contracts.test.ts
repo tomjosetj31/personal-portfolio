@@ -4,6 +4,7 @@ import { profile } from '../profile'
 import { experience, education } from '../experience'
 import { guides } from '../guides'
 import { certifications } from '../certifications'
+import { buildProofPoints } from '../proof'
 import { MEDIUM_FEED_URL, MEDIUM_PROFILE_URL, TOPIC_STOPLIST } from '../writing'
 import { uiCopy } from '../ui'
 
@@ -131,5 +132,42 @@ describe('ui copy', () => {
   it('renders the guide-count summary from the live count, never a baked-in number', () => {
     expect(uiCopy.guidesSummary(9)).toBe('9 structured guides · open source on GitHub')
     expect(uiCopy.guidesSummary(3)).toBe('3 structured guides · open source on GitHub')
+  })
+})
+
+describe('proof strip', () => {
+  it('derives the certification count from the live certifications list, never a baked-in number', () => {
+    const points = buildProofPoints(new Date('2026-01-01'))
+    const certPoint = points.find((p) => p.label[0] === 'CKA · CKAD')
+    expect(certPoint?.value).toBe(certifications.length)
+  })
+
+  it('computes the tenure figure rather than baking in a constant', () => {
+    // Straddle the role's May-1 anniversary a few years apart: the day before it lands
+    // one year behind the day after, proving the value is computed from `now`, not fixed.
+    const justBefore = buildProofPoints(new Date('2024-04-30'))
+    const justAfter = buildProofPoints(new Date('2024-05-02'))
+
+    const tenureBefore = justBefore.find((p) => p.suffix === 'yrs')?.value
+    const tenureAfter = justAfter.find((p) => p.suffix === 'yrs')?.value
+
+    expect(tenureBefore).toBeDefined()
+    expect(tenureAfter).toBeDefined()
+    expect(tenureAfter).toBe((tenureBefore as number) + 1)
+  })
+
+  it('keeps the ~40%/~30% headline figures in lockstep with the matching outcome metrics', () => {
+    const points = buildProofPoints(new Date('2026-01-01'))
+    const deployPoint = points.find((p) => p.label[1] === 'deploys')
+    const awsPoint = points.find((p) => p.label[0] === 'Lower AWS')
+
+    const deployOutcome = experience.outcomes.find((o) => o.title === 'Delivery')
+    const awsOutcome = experience.outcomes.find((o) => o.title === 'Cost')
+
+    const deployMetricValue = Number(deployOutcome?.metric.match(/(\d+)%/)?.[1])
+    const awsMetricValue = Number(awsOutcome?.metric.match(/(\d+)%/)?.[1])
+
+    expect(deployPoint?.value).toBe(deployMetricValue)
+    expect(awsPoint?.value).toBe(awsMetricValue)
   })
 })

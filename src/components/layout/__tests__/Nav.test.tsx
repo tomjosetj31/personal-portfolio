@@ -102,4 +102,31 @@ describe('Nav mobile menu', () => {
     // The desktop link set is always present; the mobile panel's duplicate must not be.
     expect(screen.queryAllByRole('link', { name: new RegExp(chapters[0].title, 'i') })).toHaveLength(1)
   })
+
+  it("hides the bar's résumé link below md, since the open panel supplies its own", async () => {
+    render(<Nav onOpenPalette={() => {}} />)
+    const toggle = screen.getByRole('button', { name: /open menu/i })
+    await userEvent.click(toggle)
+
+    const panelId = toggle.getAttribute('aria-controls')!
+    const panel = document.getElementById(panelId)!
+    const resumeLinks = screen.getAllByRole('link', { name: /résumé/i })
+    const barResumeLink = resumeLinks.find((link) => !panel.contains(link))
+
+    expect(resumeLinks).toHaveLength(2) // one in the bar, one in the open panel
+    expect(barResumeLink).toHaveClass('hidden')
+    expect(barResumeLink).toHaveClass('md:inline-block')
+  })
+
+  it("hides the panel's availability chip at sm and up, since the bar's own chip covers that range", async () => {
+    render(<Nav onOpenPalette={() => {}} />)
+    const toggle = screen.getByRole('button', { name: /open menu/i })
+    await userEvent.click(toggle)
+
+    const panelId = toggle.getAttribute('aria-controls')!
+    const panel = document.getElementById(panelId)!
+    const chipWrapper = within(panel).getByText(profile.availability!).closest('span')!.parentElement!
+
+    expect(chipWrapper).toHaveClass('sm:hidden')
+  })
 })

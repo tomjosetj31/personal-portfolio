@@ -15,6 +15,5 @@
     "skipLibCheck": true,
     "types": ["node", "vitest/globals", "@testing-library/jest-dom"]
   },
-  "include": ["src", "vitest.setup.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src", "vitest.setup.ts", "scripts", "vite.config.ts"]
 }

@@ -1,9 +1,19 @@
-import type { ReactNode } from 'react'
-import type { Product } from '../../content/types'
+import type { CSSProperties, ReactNode } from 'react'
+import type { Product, ProductStatus } from '../../content/types'
 import { CopyableCommand } from './CopyableCommand'
 import { GlassPanel } from './GlassPanel'
 import { MonoLabel } from './MonoLabel'
 import { Tag } from './Tag'
+
+/** Token-backed colour per status — shipped/live match the nav's StatusChip green;
+ * wip and archived get their own distinct, token-based treatment rather than
+ * silently rendering as "shipped". */
+const STATUS_CHIP_COLOR: Record<ProductStatus, string> = {
+  shipped: 'var(--status-green)',
+  live: 'var(--status-green)',
+  wip: 'var(--status-amber)',
+  archived: 'var(--status-neutral)',
+}
 
 /**
  * Splits `text` on backtick-delimited spans and wraps each one in an inline
@@ -56,17 +66,14 @@ export function ProductCard({ product }: { product: Product }) {
           {product.name}
         </h3>
         <span
-          style={{
-            font: '600 8.5px/1 var(--font-mono)',
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
-            color: 'var(--status-green)',
-            border: '1px solid rgba(134,239,172,0.3)',
-            background: 'rgba(134,239,172,0.08)',
-            padding: '4.5px 7px',
-            borderRadius: 999,
-            whiteSpace: 'nowrap',
-          }}
+          className="status-chip"
+          style={
+            {
+              '--chip': STATUS_CHIP_COLOR[product.status],
+              textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
+            } as CSSProperties
+          }
         >
           {product.status}
         </span>

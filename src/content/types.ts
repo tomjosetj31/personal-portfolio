@@ -92,6 +92,8 @@ export interface Experience {
   company: string
   location: string
   period: string
+  /** ISO date the role started. Drives the computed tenure shown in the proof strip. */
+  startedAt: string
   outcomes: OutcomeCard[]
 }
 

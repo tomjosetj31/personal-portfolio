@@ -5,6 +5,7 @@ export const experience: Experience = {
   company: 'Kotaicode GmbH',
   location: 'Frankfurt, Germany',
   period: '05/2021 — present',
+  startedAt: '2021-05-01',
   outcomes: [
     {
       title: 'Delivery',

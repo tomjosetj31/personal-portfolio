@@ -92,7 +92,9 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
       setActive(0)
       inputRef.current?.focus()
     } else {
-      previouslyFocusedRef.current?.focus()
+      // preventScroll: focus() scrolls its element into view by default, which would
+      // cancel a command's own scrollIntoView (e.g. a chapter jump) that just ran.
+      previouslyFocusedRef.current?.focus({ preventScroll: true })
       previouslyFocusedRef.current = null
     }
   }, [open])

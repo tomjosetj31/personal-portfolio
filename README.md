@@ -36,8 +36,14 @@ the build proceeds from the last good archive.
 
 ## Contact form
 
-Set `VITE_WEB3FORMS_KEY` (see `.env.example`). Without it the contact section
-falls back to a `mailto:` link.
+Set `VITE_WEB3FORMS_KEY` (see `.env.example`) for local development. Without it
+the contact section falls back to a `mailto:` link.
+
+In CI, the same key is read from the **repository secret `WEB3FORMS_KEY`**
+(deploy.yml maps it to `VITE_WEB3FORMS_KEY` at build time) — the names differ
+deliberately: the secret must be created as `WEB3FORMS_KEY`, not
+`VITE_WEB3FORMS_KEY`, or the build will silently fall back to the `mailto:`
+link with no error.
 
 ## Commands
 

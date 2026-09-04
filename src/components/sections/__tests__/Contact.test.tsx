@@ -75,6 +75,17 @@ describe('Contact with an access key', () => {
     expect(body.message).toBe('Interested in your platform work.')
   })
 
+  it('includes the honeypot field in the submitted payload', async () => {
+    render(<Contact accessKey={KEY} />)
+    await fillForm()
+    await userEvent.click(screen.getByRole('button', { name: new RegExp(contactCopy.submitIdle, 'i') }))
+
+    await waitFor(() => expect(fetch).toHaveBeenCalledOnce())
+    const [, init] = (fetch as unknown as ReturnType<typeof vi.fn>).mock.calls[0]
+    const body = JSON.parse((init as RequestInit).body as string)
+    expect(body).toHaveProperty('botcheck', false)
+  })
+
   it('confirms success to the user', async () => {
     render(<Contact accessKey={KEY} />)
     await fillForm()
