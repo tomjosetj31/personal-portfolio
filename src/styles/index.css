@@ -55,6 +55,22 @@
 }
 
 @layer components {
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 100;
+    padding: 10px 16px;
+    border-radius: 0 0 8px 0;
+    background: #f4f6ff;
+    color: #05060f;
+    font-weight: 600;
+    font-size: 13px;
+  }
+  .skip-link:focus {
+    left: 0;
+  }
+
   /* Opaque scrim under the blur guarantees AA contrast over any aurora bloom. */
   .glass {
     position: relative;

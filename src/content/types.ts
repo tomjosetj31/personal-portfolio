@@ -151,6 +151,10 @@ export interface UiCopy {
   paletteResumeLabel: string
   /** Command palette "open GitHub profile" command label. */
   paletteGithubLabel: string
+  /** Skip-navigation link, visible on keyboard focus only. */
+  skipToContent: string
+  /** Footer's one-line "built with" credit. */
+  footerBuiltWith: string
 }
 
 export interface PipelineNode {

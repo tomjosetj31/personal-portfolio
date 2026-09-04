@@ -15,4 +15,6 @@ export const uiCopy: UiCopy = {
   paletteCopyEmailLabel: (email) => `Copy email — ${email}`,
   paletteResumeLabel: 'Download résumé',
   paletteGithubLabel: 'Open GitHub profile',
+  skipToContent: 'Skip to content',
+  footerBuiltWith: 'Built with Vite, React, TypeScript, Tailwind and Motion.',
 }
