@@ -129,6 +129,12 @@ export interface UiCopy {
   heroSecondaryCta: string
   /** Nav's résumé download link, both desktop and mobile-menu renderings. */
   navResumeLabel: string
+  /** Teaching chapter's certifications sub-heading. */
+  certificationsLabel: string
+  /** Teaching chapter's education sub-heading. */
+  educationLabel: string
+  /** Teaching chapter's footer line. `count` is the number of guides. */
+  guidesSummary: (count: number) => string
 }
 
 export interface PipelineNode {

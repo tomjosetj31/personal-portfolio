@@ -115,10 +115,21 @@ describe('writing config', () => {
 })
 
 describe('ui copy', () => {
-  it('gives every field a non-empty string', () => {
+  it('gives every field a non-empty string, or a template function that produces one', () => {
     for (const [key, value] of Object.entries(uiCopy)) {
+      if (typeof value === 'function') {
+        const rendered = value(9)
+        expect(typeof rendered, key).toBe('string')
+        expect(rendered.length, key).toBeGreaterThan(0)
+        continue
+      }
       expect(typeof value, key).toBe('string')
       expect(value.length, key).toBeGreaterThan(0)
     }
+  })
+
+  it('renders the guide-count summary from the live count, never a baked-in number', () => {
+    expect(uiCopy.guidesSummary(9)).toBe('9 structured guides · open source on GitHub')
+    expect(uiCopy.guidesSummary(3)).toBe('3 structured guides · open source on GitHub')
   })
 })
