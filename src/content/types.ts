@@ -171,3 +171,25 @@ export interface WritingCopy {
   /** Heatmap footnote. `firstSeenAt` is the archive's first-sync ISO date. */
   trackingSince: (firstSeenAt: string) => string
 }
+
+export interface ContactCopy {
+  heading: string
+  blurb: string
+  /** Shown in place of the form when no Web3Forms key is configured. */
+  fallbackBlurb: string
+  nameLabel: string
+  emailLabel: string
+  messageLabel: string
+  submitIdle: string
+  submitPending: string
+  successMessage: string
+  errorMessage: string
+  /** Form-level fallback shown alongside per-field errors when validation fails. */
+  validationMessage: string
+  /** Shown beneath the name field when it is left empty. */
+  nameError: string
+  /** Shown beneath the email field when it is empty or not a valid email shape. */
+  emailError: string
+  /** Shown beneath the message field when it is left empty. */
+  messageError: string
+}
