@@ -135,6 +135,22 @@ export interface UiCopy {
   educationLabel: string
   /** Teaching chapter's footer line. `count` is the number of guides. */
   guidesSummary: (count: number) => string
+  /** Command palette's search input placeholder. */
+  palettePlaceholder: string
+  /** Command palette's message when no command matches the query. */
+  paletteEmptyState: string
+  /** Command palette hint next to a chapter-jump command. */
+  paletteHintChapter: string
+  /** Command palette hint next to a product command. */
+  paletteHintProduct: string
+  /** Command palette hint next to an action command (copy email, résumé, GitHub). */
+  paletteHintAction: string
+  /** Command palette "copy email" command label. `email` is the address copied. */
+  paletteCopyEmailLabel: (email: string) => string
+  /** Command palette "download résumé" command label. */
+  paletteResumeLabel: string
+  /** Command palette "open GitHub profile" command label. */
+  paletteGithubLabel: string
 }
 
 export interface PipelineNode {
