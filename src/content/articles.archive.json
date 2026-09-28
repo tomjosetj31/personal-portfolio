@@ -1,8 +1,21 @@
 {
   "source": "https://medium.com/feed/@Tomjosetj31",
   "firstSeenAt": "2026-09-03",
-  "lastSyncedAt": "2026-09-25T10:59:16.243Z",
+  "lastSyncedAt": "2026-09-28T12:42:34.723Z",
   "articles": [
+    {
+      "guid": "https://medium.com/p/1a0a0f409e25",
+      "title": "Your Kubernetes Cluster Is Wasting Resources. Can AI Fix It?",
+      "url": "https://medium.com/kotaicode/your-kubernetes-cluster-is-wasting-resources-can-ai-fix-it-1a0a0f409e25",
+      "publishedAt": "2026-09-28T10:02:08.000Z",
+      "topics": [
+        "aws",
+        "software-engineering",
+        "kubernetes",
+        "cloud-computing",
+        "devops"
+      ]
+    },
     {
       "guid": "https://medium.com/p/9597f7d12412",
       "title": "Three-Tier Web Architecture on AWS: A Production Guide",
