@@ -1,8 +1,21 @@
 {
   "source": "https://medium.com/feed/@Tomjosetj31",
   "firstSeenAt": "2026-09-03",
-  "lastSyncedAt": "2026-09-29T11:59:33.372Z",
+  "lastSyncedAt": "2026-09-30T11:48:00.442Z",
   "articles": [
+    {
+      "guid": "https://medium.com/p/1bcdf165e748",
+      "title": "GitOps + Crossplane: Managing Cloud Infrastructure from Kubernetes",
+      "url": "https://medium.com/kotaicode/gitops-crossplane-managing-cloud-infrastructure-from-kubernetes-1bcdf165e748",
+      "publishedAt": "2026-09-30T10:01:03.000Z",
+      "topics": [
+        "gitops",
+        "software-engineering",
+        "aws",
+        "kubernetes",
+        "devops"
+      ]
+    },
     {
       "guid": "https://medium.com/p/f4613de95d22",
       "title": "Serverless Architecture on AWS: A Production Guide",
