@@ -1,8 +1,21 @@
 {
   "source": "https://medium.com/feed/@Tomjosetj31",
   "firstSeenAt": "2026-09-03",
-  "lastSyncedAt": "2026-09-30T11:48:00.442Z",
+  "lastSyncedAt": "2026-10-01T12:17:10.365Z",
   "articles": [
+    {
+      "guid": "https://medium.com/p/b2e9fa9571ab",
+      "title": "Your Kubernetes Cluster Is Insecure by Default",
+      "url": "https://medium.com/kotaicode/your-kubernetes-cluster-is-insecure-by-default-b2e9fa9571ab",
+      "publishedAt": "2026-10-01T10:01:04.000Z",
+      "topics": [
+        "kubernetes",
+        "devops",
+        "software-engineering",
+        "cybersecurity",
+        "cloud-computing"
+      ]
+    },
     {
       "guid": "https://medium.com/p/1bcdf165e748",
       "title": "GitOps + Crossplane: Managing Cloud Infrastructure from Kubernetes",
