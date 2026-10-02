@@ -1,8 +1,21 @@
 {
   "source": "https://medium.com/feed/@Tomjosetj31",
   "firstSeenAt": "2026-09-03",
-  "lastSyncedAt": "2026-10-01T12:17:10.365Z",
+  "lastSyncedAt": "2026-10-02T11:46:02.819Z",
   "articles": [
+    {
+      "guid": "https://medium.com/p/f77415a97de2",
+      "title": "Event-Driven Architecture on AWS: A Production Guide",
+      "url": "https://medium.com/kotaicode/event-driven-architecture-on-aws-a-production-guide-f77415a97de2",
+      "publishedAt": "2026-10-02T10:01:04.000Z",
+      "topics": [
+        "aws",
+        "cloud-computing",
+        "cloud-architecture",
+        "software-engineering",
+        "devops"
+      ]
+    },
     {
       "guid": "https://medium.com/p/b2e9fa9571ab",
       "title": "Your Kubernetes Cluster Is Insecure by Default",
