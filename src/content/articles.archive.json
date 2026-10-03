@@ -1,8 +1,21 @@
 {
   "source": "https://medium.com/feed/@Tomjosetj31",
   "firstSeenAt": "2026-09-03",
-  "lastSyncedAt": "2026-10-02T11:46:02.819Z",
+  "lastSyncedAt": "2026-10-03T10:59:15.113Z",
   "articles": [
+    {
+      "guid": "https://medium.com/p/5d4200793133",
+      "title": "When Not to Use Kubernetes",
+      "url": "https://medium.com/write-a-catalyst/when-not-to-use-kubernetes-5d4200793133",
+      "publishedAt": "2026-10-02T14:19:42.000Z",
+      "topics": [
+        "kubernetes",
+        "software-engineering",
+        "devops",
+        "aws",
+        "cloud-computing"
+      ]
+    },
     {
       "guid": "https://medium.com/p/f77415a97de2",
       "title": "Event-Driven Architecture on AWS: A Production Guide",
