@@ -1,8 +1,21 @@
 {
   "source": "https://medium.com/feed/@Tomjosetj31",
   "firstSeenAt": "2026-09-03",
-  "lastSyncedAt": "2026-10-03T10:59:15.113Z",
+  "lastSyncedAt": "2026-10-05T13:23:30.950Z",
   "articles": [
+    {
+      "guid": "https://medium.com/p/f2eaf25c0dfc",
+      "title": "Container-Based Architecture on AWS: A Production Guide",
+      "url": "https://medium.com/kotaicode/container-based-architecture-on-aws-a-production-guide-f2eaf25c0dfc",
+      "publishedAt": "2026-10-05T10:01:04.000Z",
+      "topics": [
+        "software-engineering",
+        "kubernetes",
+        "aws",
+        "devops",
+        "cloud-computing"
+      ]
+    },
     {
       "guid": "https://medium.com/p/5d4200793133",
       "title": "When Not to Use Kubernetes",
