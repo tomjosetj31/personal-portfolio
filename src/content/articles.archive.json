@@ -1,8 +1,21 @@
 {
   "source": "https://medium.com/feed/@Tomjosetj31",
   "firstSeenAt": "2026-09-03",
-  "lastSyncedAt": "2026-10-05T13:23:30.950Z",
+  "lastSyncedAt": "2026-10-06T12:37:57.909Z",
   "articles": [
+    {
+      "guid": "https://medium.com/p/8665da12e71c",
+      "title": "How etcd Stores Your Kubernetes Cluster State",
+      "url": "https://medium.com/kotaicode/how-etcd-stores-your-kubernetes-cluster-state-8665da12e71c",
+      "publishedAt": "2026-10-06T10:01:03.000Z",
+      "topics": [
+        "cloud-computing",
+        "software-engineering",
+        "devops",
+        "distributed-systems",
+        "kubernetes"
+      ]
+    },
     {
       "guid": "https://medium.com/p/f2eaf25c0dfc",
       "title": "Container-Based Architecture on AWS: A Production Guide",
