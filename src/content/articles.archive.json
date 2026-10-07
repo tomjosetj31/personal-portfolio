@@ -1,8 +1,21 @@
 {
   "source": "https://medium.com/feed/@Tomjosetj31",
   "firstSeenAt": "2026-09-03",
-  "lastSyncedAt": "2026-10-06T12:37:57.909Z",
+  "lastSyncedAt": "2026-10-07T12:31:09.456Z",
   "articles": [
+    {
+      "guid": "https://medium.com/p/0ea1ae8af8f9",
+      "title": "GitOps Across Multiple Cloud Providers: AWS, Azure, and GCP",
+      "url": "https://medium.com/kotaicode/gitops-across-multiple-cloud-providers-aws-azure-and-gcp-0ea1ae8af8f9",
+      "publishedAt": "2026-10-07T10:01:03.000Z",
+      "topics": [
+        "kubernetes",
+        "software-engineering",
+        "gitops",
+        "devops",
+        "cloud-computing"
+      ]
+    },
     {
       "guid": "https://medium.com/p/8665da12e71c",
       "title": "How etcd Stores Your Kubernetes Cluster State",
