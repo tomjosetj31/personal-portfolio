@@ -1,8 +1,21 @@
 {
   "source": "https://medium.com/feed/@Tomjosetj31",
   "firstSeenAt": "2026-09-03",
-  "lastSyncedAt": "2026-10-07T12:31:09.456Z",
+  "lastSyncedAt": "2026-10-08T12:40:42.124Z",
   "articles": [
+    {
+      "guid": "https://medium.com/p/191e4b89d10a",
+      "title": "Your Kubernetes Pods Are Running, but Your Application Is Down",
+      "url": "https://medium.com/kotaicode/your-kubernetes-pods-are-running-but-your-application-is-down-191e4b89d10a",
+      "publishedAt": "2026-10-08T10:01:02.000Z",
+      "topics": [
+        "aws",
+        "devops",
+        "kubernetes",
+        "cloud-computing",
+        "software-engineering"
+      ]
+    },
     {
       "guid": "https://medium.com/p/0ea1ae8af8f9",
       "title": "GitOps Across Multiple Cloud Providers: AWS, Azure, and GCP",
