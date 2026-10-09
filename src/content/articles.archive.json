@@ -1,8 +1,21 @@
 {
   "source": "https://medium.com/feed/@Tomjosetj31",
   "firstSeenAt": "2026-09-03",
-  "lastSyncedAt": "2026-10-08T12:40:42.124Z",
+  "lastSyncedAt": "2026-10-09T12:27:47.697Z",
   "articles": [
+    {
+      "guid": "https://medium.com/p/8416c5d81bb7",
+      "title": "Designing Kubernetes Clusters That Survive Availability Zone Failures",
+      "url": "https://medium.com/kotaicode/designing-kubernetes-clusters-that-survive-availability-zone-failures-8416c5d81bb7",
+      "publishedAt": "2026-10-09T10:01:04.000Z",
+      "topics": [
+        "cloud-computing",
+        "devops",
+        "kubernetes",
+        "software-engineering",
+        "aws"
+      ]
+    },
     {
       "guid": "https://medium.com/p/191e4b89d10a",
       "title": "Your Kubernetes Pods Are Running, but Your Application Is Down",
